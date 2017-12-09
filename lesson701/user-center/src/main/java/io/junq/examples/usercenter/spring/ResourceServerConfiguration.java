@@ -44,8 +44,13 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     @Override
     public void configure(final HttpSecurity http) throws Exception {
         http.
-        	authorizeRequests().
-        	anyRequest().authenticated()
+        	authorizeRequests()
+        	.antMatchers("/swagger-ui.html",
+        				"/swagger-resources/**",
+        				"/webjars/**",
+        				"/v2/**")
+        		.permitAll() // 允许swagger2相关URL可以被访问
+        	.anyRequest().authenticated()
         .and().
         	sessionManagement()
         	.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
