@@ -16,7 +16,7 @@ import io.junq.examples.usercenter.util.UserCenterMapping;
 @Controller
 //@RequestMapping(value = UserCenterMapping.Hateoas.ROLES)
 public class RoleHateoasControllerSimple {
-	
+
 	@Autowired
 	private IRoleService service;
 	
@@ -29,5 +29,4 @@ public class RoleHateoasControllerSimple {
 		final Role entity = service.findOne(id);
 		return new RoleResource(entity);
 	}
-	
 }

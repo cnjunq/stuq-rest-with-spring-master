@@ -15,7 +15,10 @@ public class RoleResource extends ResourceSupport {
 		this.role = role;
 		
 		this.add(linkTo(RoleHateoasController.class).withRel("roles"));
-		this.add(linkTo(methodOn(RoleHateoasController.class, role).findOne(role.getId())).withSelfRel());
+		this.add(linkTo(
+				methodOn(RoleHateoasController.class, role)
+					.findOne(role.getId()))
+				.withSelfRel());
 	}
 	
 	public Role getRole() {
