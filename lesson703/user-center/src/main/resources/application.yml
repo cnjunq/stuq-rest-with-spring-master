@@ -1,0 +1,13 @@
+server:
+  port: 8082
+  
+logging:
+  level:
+    root: INFO
+    io.junq: DEBUG 
+    org.springframework.security: DEBUG
+    
+security:
+  oauth2:
+    resource:
+      filter-order: 3
