@@ -1,6 +1,7 @@
 package io.junq.examples.usercenter.web;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,8 +25,8 @@ import io.junq.examples.common.web.controller.AbstractController;
 import io.junq.examples.common.web.controller.ISortingController;
 import io.junq.examples.usercenter.persistence.model.Privilege;
 import io.junq.examples.usercenter.service.IPrivilegeService;
-import io.junq.examples.usercenter.util.UserCenterMapping;
 import io.junq.examples.usercenter.util.UserCenter.Privileges;
+import io.junq.examples.usercenter.util.UserCenterMapping;
 
 @Controller
 @RequestMapping(value = UserCenterMapping.PRIVILEGES)
@@ -76,7 +77,7 @@ public class PrivilegeRestController extends AbstractController<Privilege> imple
     		@RequestParam(value = QueryConstants.SORT_ORDER) final String sortOrder) {
         return findAllSortedInternal(sortBy, sortOrder);
     }
-
+    
     @Override
     @RequestMapping(
     		method = RequestMethod.GET
@@ -84,6 +85,19 @@ public class PrivilegeRestController extends AbstractController<Privilege> imple
     @ResponseBody
     @Secured(Privileges.CAN_ROLE_READ)
     public List<Privilege> findAll(final HttpServletRequest request) {
+        return findAllInternal(request);
+    }
+
+    @RequestMapping(
+    		value = {
+    				UserCenterMapping.Plural.PRIVILEGES,
+    				"/roles/{roleId}/privileges"
+    			},
+    		method = RequestMethod.GET
+    		)
+    @ResponseBody
+    @Secured(Privileges.CAN_ROLE_READ)
+    public List<Privilege> findAll(@PathVariable final Map<String, String> pathVariables, final HttpServletRequest request) {
         return findAllInternal(request);
     }
 
