@@ -5,30 +5,31 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import io.junq.examples.common.interfaces.IDto;
 import io.junq.examples.common.persistence.model.IEntity;
 import io.junq.examples.common.web.RestPreconditions;
 import io.junq.examples.common.web.events.AfterResourceCreatedEvent;
 
-public abstract class AbstractController <T extends IEntity> extends AbstractReadOnlyController<T> {
+public abstract class AbstractController <D extends IDto, E extends IEntity> extends AbstractReadOnlyController<D, E> {
 	
     @Autowired
-    public AbstractController(final Class<T> clazzToSet) {
+    public AbstractController(final Class<D> clazzToSet) {
         super(clazzToSet);
     }
 
 	// 新建并保存
 
-    protected final void createInternal(final T resource, final UriComponentsBuilder uriBuilder, final HttpServletResponse response) {
+    protected final void createInternal(final E resource, final UriComponentsBuilder uriBuilder, final HttpServletResponse response) {
         RestPreconditions.checkRequestElementNotNull(resource);
         RestPreconditions.checkRequestState(resource.getId() == null);
-        final T existingResource = getService().create(resource);
+        final E existingResource = getService().create(resource);
 
-        eventPublisher.publishEvent(new AfterResourceCreatedEvent<T>(clazz, uriBuilder, response, existingResource.getId().toString()));
+        eventPublisher.publishEvent(new AfterResourceCreatedEvent<D>(clazz, uriBuilder, response, existingResource.getId().toString()));
     }
 
 	// 更新操作
     
-    protected final void updateInternal(final long id, final T resource) {
+    protected final void updateInternal(final long id, final E resource) {
         RestPreconditions.checkRequestElementNotNull(resource);
         RestPreconditions.checkRequestElementNotNull(resource.getId());
         RestPreconditions.checkRequestState(resource.getId() == id);

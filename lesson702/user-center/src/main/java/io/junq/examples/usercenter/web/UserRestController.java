@@ -29,7 +29,7 @@ import io.junq.examples.usercenter.util.UserCenterMapping;
 
 @Controller
 @RequestMapping(value = UserCenterMapping.USERS)
-public class UserRestController extends AbstractController<User> implements ISortingController<User> {
+public class UserRestController extends AbstractController<User, User> implements ISortingController<User> {
 	
 	@Autowired
     private IUserService service;
@@ -47,16 +47,16 @@ public class UserRestController extends AbstractController<User> implements ISor
     @ResponseBody
     @Secured(Privileges.CAN_USER_READ)
     public List<User> findAllPaginatedAndSorted(@RequestParam(value = QueryConstants.PAGE) final int page, @RequestParam(value = QueryConstants.SIZE) final int size, @RequestParam(value = QueryConstants.SORT_BY) final String sortBy,
-            @RequestParam(value = QueryConstants.SORT_ORDER) final String sortOrder) {
-        return findPaginatedAndSortedInternal(page, size, sortBy, sortOrder);
+            @RequestParam(value = QueryConstants.SORT_ORDER) final String sortOrder, final UriComponentsBuilder uriBuilder, final HttpServletResponse response) {
+        return findPaginatedAndSortedInternal(page, size, sortBy, sortOrder, uriBuilder, response);
     }
 
     @Override
     @RequestMapping(params = { QueryConstants.PAGE, QueryConstants.SIZE }, method = RequestMethod.GET)
     @ResponseBody
     @Secured(Privileges.CAN_USER_READ)
-    public List<User> findAllPaginated(@RequestParam(value = QueryConstants.PAGE) final int page, @RequestParam(value = QueryConstants.SIZE) final int size) {
-        return findPaginatedAndSortedInternal(page, size, null, null);
+    public List<User> findAllPaginated(@RequestParam(value = QueryConstants.PAGE) final int page, @RequestParam(value = QueryConstants.SIZE) final int size, final UriComponentsBuilder uriBuilder, final HttpServletResponse response) {
+        return findPaginatedAndSortedInternal(page, size, null, null, uriBuilder, response);
     }
 
     @Override
@@ -71,8 +71,8 @@ public class UserRestController extends AbstractController<User> implements ISor
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
     @Secured(Privileges.CAN_USER_READ)
-    public List<User> findAll(final HttpServletRequest request) {
-        return findAllInternal(request);
+    public List<User> findAll(final HttpServletRequest request, final UriComponentsBuilder uriBuilder, final HttpServletResponse response) {
+        return findAllInternal(request, uriBuilder, response);
     }
 
     // 查找：单条记录

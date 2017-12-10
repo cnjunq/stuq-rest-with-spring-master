@@ -24,12 +24,12 @@ import io.junq.examples.common.web.controller.AbstractController;
 import io.junq.examples.common.web.controller.ISortingController;
 import io.junq.examples.usercenter.persistence.model.Privilege;
 import io.junq.examples.usercenter.service.IPrivilegeService;
-import io.junq.examples.usercenter.util.UserCenterMapping;
 import io.junq.examples.usercenter.util.UserCenter.Privileges;
+import io.junq.examples.usercenter.util.UserCenterMapping;
 
 @Controller
 @RequestMapping(value = UserCenterMapping.PRIVILEGES)
-public class PrivilegeRestController extends AbstractController<Privilege> implements ISortingController<Privilege> {
+public class PrivilegeRestController extends AbstractController<Privilege, Privilege> implements ISortingController<Privilege> {
 
 	@Autowired
     private IPrivilegeService service;
@@ -50,8 +50,8 @@ public class PrivilegeRestController extends AbstractController<Privilege> imple
     @ResponseBody
     @Secured(Privileges.CAN_ROLE_READ)
     public List<Privilege> findAllPaginatedAndSorted(@RequestParam(value = QueryConstants.PAGE) final int page, @RequestParam(value = QueryConstants.SIZE) final int size, @RequestParam(value = QueryConstants.SORT_BY) final String sortBy,
-            @RequestParam(value = QueryConstants.SORT_ORDER) final String sortOrder) {
-        return findPaginatedAndSortedInternal(page, size, sortBy, sortOrder);
+            @RequestParam(value = QueryConstants.SORT_ORDER) final String sortOrder, final UriComponentsBuilder uriBuilder, final HttpServletResponse response) {
+        return findPaginatedAndSortedInternal(page, size, sortBy, sortOrder, uriBuilder, response);
     }
 
     @Override
@@ -61,8 +61,8 @@ public class PrivilegeRestController extends AbstractController<Privilege> imple
     		)
     @ResponseBody
     @Secured(Privileges.CAN_ROLE_READ)
-    public List<Privilege> findAllPaginated(@RequestParam(value = QueryConstants.PAGE) final int page, @RequestParam(value = QueryConstants.SIZE) final int size) {
-        return findPaginatedAndSortedInternal(page, size, null, null);
+    public List<Privilege> findAllPaginated(@RequestParam(value = QueryConstants.PAGE) final int page, @RequestParam(value = QueryConstants.SIZE) final int size, final UriComponentsBuilder uriBuilder, final HttpServletResponse response) {
+        return findPaginatedAndSortedInternal(page, size, null, null, uriBuilder, response);
     }
 
     @Override
@@ -83,8 +83,8 @@ public class PrivilegeRestController extends AbstractController<Privilege> imple
     		)
     @ResponseBody
     @Secured(Privileges.CAN_ROLE_READ)
-    public List<Privilege> findAll(final HttpServletRequest request) {
-        return findAllInternal(request);
+    public List<Privilege> findAll(final HttpServletRequest request, final UriComponentsBuilder uriBuilder, final HttpServletResponse response) {
+        return findAllInternal(request, uriBuilder, response);
     }
 
     // 查找：单条记录
@@ -95,8 +95,8 @@ public class PrivilegeRestController extends AbstractController<Privilege> imple
     		)
     @ResponseBody
     @Secured(Privileges.CAN_ROLE_READ)
-    public Privilege findOne(@PathVariable("id") final Long id) {
-        return findOneInternal(id);
+    public Privilege findOne(@PathVariable("id") final Long id, final UriComponentsBuilder uriBuilder, final HttpServletResponse response) {
+        return findOneInternal(id, uriBuilder, response);
     }
 
     // 新建
