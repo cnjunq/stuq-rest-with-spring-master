@@ -48,7 +48,8 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
         	.antMatchers("/swagger-ui.html",
         				"/swagger-resources/**",
         				"/webjars/**",
-        				"/v2/**")
+        				"/v2/**",
+        				"/management/**")
         		.permitAll() // 允许swagger2相关URL可以被访问
         	.anyRequest().authenticated()
         .and().

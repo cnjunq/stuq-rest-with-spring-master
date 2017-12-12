@@ -82,6 +82,13 @@
 			<version>${tomcat.version}</version>
 			<scope>provided</scope>
 		</dependency>
+		
+		<!-- 监控 -->
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
 
 		<!-- 安全 -->
 		<dependency>

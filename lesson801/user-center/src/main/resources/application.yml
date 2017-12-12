@@ -6,6 +6,17 @@ logging:
     root: INFO
     io.junq: DEBUG 
     org.springframework.security: DEBUG
+
+info:
+  app:
+    name: user-center-api
+  build:
+    version: @project.version@    
+
+management:
+  security:
+    enabled: false
+  context-path: /management
     
 security:
   oauth2:
