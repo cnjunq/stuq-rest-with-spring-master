@@ -14,9 +14,9 @@ public class HealthCheck implements HealthIndicator {
 		}
 		return Health.outOfService().build();
 	}
-
+	
 	private boolean check() {
 		return false;
 	}
-	
+
 }

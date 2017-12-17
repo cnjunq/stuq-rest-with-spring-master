@@ -5,7 +5,7 @@ logging:
   level:
     root: INFO
     io.junq: DEBUG 
-    org.springframework.security: DEBUG
+    org.springframework.security: INFO
 
 info:
   app:

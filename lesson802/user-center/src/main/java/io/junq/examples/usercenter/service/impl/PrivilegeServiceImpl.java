@@ -1,6 +1,7 @@
 package io.junq.examples.usercenter.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.metrics.CounterService;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +17,9 @@ public class PrivilegeServiceImpl extends AbstractService<Privilege> implements 
 
     @Autowired
     private IPrivilegeJpaDao dao;
+    
+    @Autowired
+    private CounterService counterService;
 
     public PrivilegeServiceImpl() {
         super();
@@ -27,6 +31,8 @@ public class PrivilegeServiceImpl extends AbstractService<Privilege> implements 
 
     @Override
     public Privilege findByName(final String name) {
+    	counterService.increment("service.privilege.findByName");
+    	
         return getDao().findByName(name);
     }
 
