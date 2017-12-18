@@ -31,7 +31,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
-@ComponentScan({ "io.junq.examples.usercenter.web", "io.junq.examples.common.web" })
+@ComponentScan({ "io.junq.examples.usercenter.web", "io.junq.examples.common.web", "io.junq.examples.common.metric.web" })
 @EnableWebMvc
 @EnableSwagger2
 public class UserCenterWebConfiguration extends WebMvcConfigurerAdapter {

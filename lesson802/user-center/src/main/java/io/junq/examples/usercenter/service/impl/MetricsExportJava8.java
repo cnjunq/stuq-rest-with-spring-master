@@ -8,7 +8,7 @@ import org.springframework.boot.actuate.metrics.buffer.BufferMetricReader;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class MetricsExportJava8 {
 	
 	private Logger LOGGER = LoggerFactory.getLogger(MetricsExportJava8.class);

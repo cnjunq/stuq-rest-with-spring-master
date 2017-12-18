@@ -4,7 +4,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan({ "io.junq.examples.usercenter.service" })
+@ComponentScan({ "io.junq.examples.usercenter.service", "io.junq.examples.common.metric.service" })
 public class UserCenterServiceConfiguration {
 
     public UserCenterServiceConfiguration() {
