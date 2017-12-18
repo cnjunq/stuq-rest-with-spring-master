@@ -49,7 +49,8 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
         				"/swagger-resources/**",
         				"/webjars/**",
         				"/v2/**",
-        				"/management/**")
+        				"/management/**",
+        				"/metric-graph-data")
         		.permitAll() // 允许swagger2相关URL可以被访问
         	.anyRequest().authenticated()
         .and().
