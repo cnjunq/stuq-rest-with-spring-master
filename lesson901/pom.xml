@@ -99,7 +99,7 @@
 				<artifactId>rest-client</artifactId>
 				<version>${rest-client.version}</version>
 				<scope>test</scope>
-            	<classifier>tests</classifier>
+				<classifier>tests</classifier>
 			</dependency>
 			<dependency>
 				<groupId>io.junq.examples</groupId>
@@ -111,7 +111,13 @@
 				<groupId>io.junq.examples</groupId>
 				<artifactId>usercenter-client</artifactId>
 				<version>${usercenter-client.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.junq.examples</groupId>
+				<artifactId>usercenter-client</artifactId>
+				<version>${usercenter-client.version}</version>
 				<scope>test</scope>
+				<classifier>tests</classifier>
 			</dependency>
 			<dependency>
 				<groupId>com.google.guava</groupId>
@@ -128,12 +134,8 @@
 				<artifactId>validation-api</artifactId>
 				<version>${validation-api.version}</version>
 			</dependency>
-			<dependency>
-				<groupId>io.rest-assured</groupId>
-				<artifactId>rest-assured</artifactId>
-				<version>${restassured.version}</version>
-				<scope>test</scope>
-			</dependency>
+			<!-- <dependency> <groupId>io.rest-assured</groupId> <artifactId>rest-assured</artifactId> 
+				<version>${restassured.version}</version> <scope>test</scope> </dependency> -->
 		</dependencies>
 	</dependencyManagement>
 

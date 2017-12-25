@@ -40,6 +40,20 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-library</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>io.rest-assured</groupId>
@@ -83,4 +97,40 @@
 		</plugins>
 
 	</build>
+
+
+	<profiles>
+		<profile>
+			<id>integration</id>
+			<build>
+				<plugins>
+
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<executions>
+							<execution>
+								<phase>integration-test</phase>
+								<goals>
+									<goal>test</goal>
+								</goals>
+								<configuration>
+									<excludes>
+										<exclude>none</exclude>
+									</excludes>
+									<includes>
+										<include>**/*RestIntegrationTest.java</include>
+									</includes>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+
+				</plugins>
+			</build>
+		</profile>
+
+	</profiles>
+
+
 </project>
