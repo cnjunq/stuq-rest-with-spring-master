@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>io.junq.examples</groupId>
+	<artifactId>user-center-parent</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<modules>
+		<module>rest-common</module>
+		<module>rest-client</module>
+		<module>rest-test</module>
+		<module>user-center</module>
+		<module>usercenter-client</module>
+		<module>usercenter-ui</module>
+	</modules>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.2.RELEASE</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
+
+	<issueManagement>
+		<url>https://github.com/cnjunq/stuq-rest-with-spring-starter/issues</url>
+		<system>GitHub Issues</system>
+	</issueManagement>
+
+	<licenses>
+		<license>
+			<name>MIT License</name>
+			<url>http://www.opensource.org/licenses/mit-license.php</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<scm>
+		<url>https://github.com/cnjunq/stuq-rest-with-spring-starter</url>
+		<connection>scm:git:git://github.com/cnjunq/stuq-rest-with-spring-starter.git</connection>
+		<developerConnection>scm:git:git@github.com:cnjunq/stuq-rest-with-spring-starter.git</developerConnection>
+	</scm>
+
+	<developers>
+		<developer>
+			<email>junq.me@gmail.com</email>
+			<name>Junqiang Liu</name>
+			<url>https://github.com/cnjunq</url>
+			<id>cnjunq</id>
+		</developer>
+	</developers>
+
+	<properties>
+		<!-- 通常配置 -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+
+		<!-- 通用工具 -->
+		<guava.version>21.0</guava.version>
+		<commons-lang3.version>3.5</commons-lang3.version>
+
+		<!-- 持久化 -->
+		<validation-api.version>1.1.0.Final</validation-api.version>
+		<hsqldb.version>2.3.4</hsqldb.version>
+
+		<!-- 测试相关 -->
+		<restassured.version>3.0.2</restassured.version>
+
+		<!-- Maven插件 -->
+		<maven-surefire-plugin.version>2.20</maven-surefire-plugin.version>
+		<maven-compiler-plugin.version>3.6.1</maven-compiler-plugin.version>
+		<maven-resources-plugin.version>3.0.2</maven-resources-plugin.version>
+		<cargo-maven2-plugin.version>1.5.0</cargo-maven2-plugin.version>
+
+		<!-- 内部依赖项目 -->
+		<rest-common.version>1.0.0-SNAPSHOT</rest-common.version>
+		<rest-client.version>1.0.0-SNAPSHOT</rest-client.version>
+		<rest-test.version>1.0.0-SNAPSHOT</rest-test.version>
+		<usercenter-client.version>1.0.0-SNAPSHOT</usercenter-client.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>io.junq.examples</groupId>
+				<artifactId>rest-common</artifactId>
+				<version>${rest-common.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.junq.examples</groupId>
+				<artifactId>rest-client</artifactId>
+				<version>${rest-client.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.junq.examples</groupId>
+				<artifactId>rest-client</artifactId>
+				<version>${rest-client.version}</version>
+				<scope>test</scope>
+				<classifier>tests</classifier>
+			</dependency>
+			<dependency>
+				<groupId>io.junq.examples</groupId>
+				<artifactId>rest-test</artifactId>
+				<version>${rest-test.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>io.junq.examples</groupId>
+				<artifactId>usercenter-client</artifactId>
+				<version>${usercenter-client.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.junq.examples</groupId>
+				<artifactId>usercenter-client</artifactId>
+				<version>${usercenter-client.version}</version>
+				<scope>test</scope>
+				<classifier>tests</classifier>
+			</dependency>
+			<dependency>
+				<groupId>com.google.guava</groupId>
+				<artifactId>guava</artifactId>
+				<version>${guava.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-lang3</artifactId>
+				<version>${commons-lang3.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>javax.validation</groupId>
+				<artifactId>validation-api</artifactId>
+				<version>${validation-api.version}</version>
+			</dependency>
+			<!-- <dependency> <groupId>io.rest-assured</groupId> <artifactId>rest-assured</artifactId> 
+				<version>${restassured.version}</version> <scope>test</scope> </dependency> -->
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
+		</plugins>
+
+		<pluginManagement>
+			<plugins>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>${maven-surefire-plugin.version}</version>
+					<configuration>
+						<testFailureIgnore>true</testFailureIgnore>
+						<excludes>
+							<exclude>**/*IntegrationTest.java</exclude>
+							<exclude>**/*LiveTest.java</exclude>
+						</excludes>
+						<systemPropertyVariables>
+						</systemPropertyVariables>
+					</configuration>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${maven-compiler-plugin.version}</version>
+					<configuration>
+						<source>1.8</source>
+						<target>1.8</target>
+						<compilerArgument>-proc:none</compilerArgument>
+					</configuration>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>${maven-resources-plugin.version}</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+</project>
