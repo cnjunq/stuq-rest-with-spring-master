@@ -75,16 +75,6 @@ public class RoleLogicRestLiveTest extends UserCenterLogicRestLiveTest<Role> imp
         assertEquals(newResource, retrievedResource);
     }
 
-    // find one
-
-    @Test
-    public final void givenResourceExists_whenResourceIsRetrievedByName_thenResourceIsCorrectlyRetrieved() {
-        final Role newResource = getEntityOps().createNewResource();
-        getApi().create(newResource);
-        final Role existingResourceByName = getApi().findByName(newResource.getName());
-        assertEquals(newResource, existingResourceByName);
-    }
-
     // find all
 
     @Test

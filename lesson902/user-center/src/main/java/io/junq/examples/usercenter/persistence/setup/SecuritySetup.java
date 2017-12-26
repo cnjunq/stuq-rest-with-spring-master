@@ -30,7 +30,7 @@ import io.junq.examples.usercenter.util.UserCenter.Roles;
  * 在项目启动时，将进行一些数据初始化操作。
  */
 @Component
-@Profile(Profiles.PRODUCTION)
+@Profile(Profiles.DEPLOYED)
 public class SecuritySetup implements ApplicationListener<ContextRefreshedEvent> {
     private final Logger LOGGER = LoggerFactory.getLogger(SecuritySetup.class);
 
