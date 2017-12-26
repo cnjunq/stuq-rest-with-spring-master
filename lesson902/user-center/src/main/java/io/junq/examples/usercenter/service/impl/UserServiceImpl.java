@@ -18,7 +18,7 @@ public class UserServiceImpl extends AbstractService<User> implements IUserServi
     private IUserJpaDao dao;
 
     public UserServiceImpl() {
-        super();
+        super(User.class);
     }
 
     // API

@@ -114,18 +114,6 @@
 		<plugins>
 
 			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<goals>
-							<goal>repackage</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-
-			<plugin>
 				<groupId>org.codehaus.cargo</groupId>
 				<artifactId>cargo-maven2-plugin</artifactId>
 				<version>${cargo-maven2-plugin.version}</version>
@@ -135,13 +123,15 @@
 						<containerId>tomcat8x</containerId>
 						<type>embedded</type>
 						<systemProperties>
-							<envTarget>local</envTarget>
-							<persistenceTarget>production</persistenceTarget>
+							<envTarget>dev</envTarget>
+							<persistenceTarget>cargo</persistenceTarget>
 						</systemProperties>
 					</container>
 					<configuration>
 						<properties>
 							<cargo.servlet.port>8082</cargo.servlet.port>
+							<cargo.tomcat.ajp.port>8010</cargo.tomcat.ajp.port>
+                            <cargo.rmi.port>8006</cargo.rmi.port>
 						</properties>
 					</configuration>
 				</configuration>

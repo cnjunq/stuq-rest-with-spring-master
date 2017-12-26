@@ -18,7 +18,7 @@ public class RoleServiceImpl extends AbstractService<Role> implements IRoleServi
     private IRoleJpaDao dao;
 
     public RoleServiceImpl() {
-        super();
+        super(Role.class);
     }
 
     // API

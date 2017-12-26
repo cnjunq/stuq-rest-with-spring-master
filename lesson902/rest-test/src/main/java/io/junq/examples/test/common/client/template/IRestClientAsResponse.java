@@ -1,8 +1,10 @@
 package io.junq.examples.test.common.client.template;
 
 import org.apache.commons.lang3.tuple.Pair;
+import org.apache.commons.lang3.tuple.Triple;
 
 import io.junq.examples.common.interfaces.IDto;
+import io.junq.examples.common.search.ClientOperation;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
@@ -26,6 +28,14 @@ public interface IRestClientAsResponse<T extends IDto> {
 
 	Response findAllPaginatedAndSortedAsResponse(final int page, final int size, final String sortBy,
 			final String sortOrder);
+	
+    // search
+
+    Response searchAsResponse(final Triple<String, ClientOperation, String> idOp, final Triple<String, ClientOperation, String> nameOp);
+
+    Response searchAsResponse(final Triple<String, ClientOperation, String> idOp, final Triple<String, ClientOperation, String> nameOp, final int page, final int size);
+
+    Response searchAsResponse(final Triple<String, ClientOperation, String>... constraints);
 
 	// create
 

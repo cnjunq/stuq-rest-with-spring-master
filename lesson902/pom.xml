@@ -9,11 +9,12 @@
 	<packaging>pom</packaging>
 
 	<modules>
-		<module>rest-common</module>
 		<module>rest-client</module>
+		<module>rest-common</module>
 		<module>rest-test</module>
-		<module>user-center</module>
+		
 		<module>usercenter-client</module>
+		<module>user-center</module>
 		<module>usercenter-ui</module>
 	</modules>
 
@@ -86,13 +87,13 @@
 		<dependencies>
 			<dependency>
 				<groupId>io.junq.examples</groupId>
-				<artifactId>rest-common</artifactId>
-				<version>${rest-common.version}</version>
+				<artifactId>rest-client</artifactId>
+				<version>${rest-client.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>io.junq.examples</groupId>
-				<artifactId>rest-client</artifactId>
-				<version>${rest-client.version}</version>
+				<artifactId>rest-common</artifactId>
+				<version>${rest-common.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>io.junq.examples</groupId>
@@ -134,8 +135,6 @@
 				<artifactId>validation-api</artifactId>
 				<version>${validation-api.version}</version>
 			</dependency>
-			<!-- <dependency> <groupId>io.rest-assured</groupId> <artifactId>rest-assured</artifactId> 
-				<version>${restassured.version}</version> <scope>test</scope> </dependency> -->
 		</dependencies>
 	</dependencyManagement>
 

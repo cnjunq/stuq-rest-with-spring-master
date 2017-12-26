@@ -3,6 +3,10 @@ package io.junq.examples.common.interfaces;
 import java.io.Serializable;
 import java.util.List;
 
+import org.apache.commons.lang3.tuple.Triple;
+
+import io.junq.examples.common.search.ClientOperation;
+
 public interface IOperations<T extends Serializable> {
 
 	T findOne(final long id);
@@ -24,4 +28,10 @@ public interface IOperations<T extends Serializable> {
 	void deleteAll();
 
 	long count();
+	
+    // search
+
+    List<T> searchAll(final Triple<String, ClientOperation, String>... constraints);
+
+    T searchOne(final Triple<String, ClientOperation, String>... constraints);
 }

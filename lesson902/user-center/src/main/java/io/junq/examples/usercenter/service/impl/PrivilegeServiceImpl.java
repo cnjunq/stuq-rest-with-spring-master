@@ -19,7 +19,7 @@ public class PrivilegeServiceImpl extends AbstractService<Privilege> implements 
     private IPrivilegeJpaDao dao;
 
     public PrivilegeServiceImpl() {
-        super();
+        super(Privilege.class);
     }
 
     // API
