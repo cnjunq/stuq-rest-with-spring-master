@@ -35,7 +35,14 @@ public class UserCenterJavaSecurityConfiguration extends WebSecurityConfigurerAd
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()
-			
+			.antMatchers("/swagger-ui.html",
+    				"/swagger-resources/**",
+    				"/webjars/**",
+    				"/v2/**",
+    				"/management/**",
+    				"/metric-graph-data")
+    		.permitAll() // 允许swagger2相关URL可以被访问
+    		
 			.anyRequest()
 			.authenticated()
 			

@@ -1,12 +1,11 @@
 package io.junq.examples.usercenter.persistence.setup;
 
-import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
-
 import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -15,13 +14,14 @@ import org.springframework.stereotype.Component;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Sets;
 
+import io.junq.examples.common.persistence.event.BeforeSetupEvent;
 import io.junq.examples.common.spring.util.Profiles;
-import io.junq.examples.usercenter.persistence.model.Principal;
 import io.junq.examples.usercenter.persistence.model.Privilege;
 import io.junq.examples.usercenter.persistence.model.Role;
-import io.junq.examples.usercenter.service.IPrincipalService;
+import io.junq.examples.usercenter.persistence.model.User;
 import io.junq.examples.usercenter.service.IPrivilegeService;
 import io.junq.examples.usercenter.service.IRoleService;
+import io.junq.examples.usercenter.service.IUserService;
 import io.junq.examples.usercenter.util.UserCenter;
 import io.junq.examples.usercenter.util.UserCenter.Privileges;
 import io.junq.examples.usercenter.util.UserCenter.Roles;
@@ -37,13 +37,16 @@ public class SecuritySetup implements ApplicationListener<ContextRefreshedEvent>
     private boolean setupDone;
 
     @Autowired
-    private IPrincipalService principalService;
+    private IUserService userService;
 
     @Autowired
     private IRoleService roleService;
 
     @Autowired
     private IPrivilegeService privilegeService;
+
+    @Autowired
+    private ApplicationContext eventPublisher;
 
     public SecuritySetup() {
         super();
@@ -60,10 +63,11 @@ public class SecuritySetup implements ApplicationListener<ContextRefreshedEvent>
     public final void onApplicationEvent(final ContextRefreshedEvent event) {
         if (!setupDone) {
             LOGGER.info("Executing Setup");
+            eventPublisher.publishEvent(new BeforeSetupEvent(this));
 
             createPrivileges();
             createRoles();
-            createPrincipals();
+            createUsers();
 
             setupDone = true;
             LOGGER.info("Setup Done");
@@ -121,21 +125,22 @@ public class SecuritySetup implements ApplicationListener<ContextRefreshedEvent>
         }
     }
 
-    // Principal/User
+    // User/User
 
-    final void createPrincipals() {
+    final void createUsers() {
         final Role roleAdmin = roleService.findByName(Roles.ROLE_ADMIN);
         final Role roleUser = roleService.findByName(Roles.ROLE_ENDUSER);
 
-        createPrincipalIfNotExisting(UserCenter.ADMIN_EMAIL, UserCenter.ADMIN_PASS, Sets.<Role> newHashSet(roleAdmin));
-        createPrincipalIfNotExisting(UserCenter.USER_EMAIL, UserCenter.USER_PASS, Sets.<Role> newHashSet(roleUser));
+        createUserIfNotExisting(UserCenter.ADMIN_USERNAME, UserCenter.ADMIN_EMAIL, UserCenter.ADMIN_PASS, Sets.<Role> newHashSet(roleAdmin));
+        createUserIfNotExisting(UserCenter.USER_USERNAME, UserCenter.USER_EMAIL, UserCenter.USER_PASS, Sets.<Role> newHashSet(roleUser));
     }
 
-    final void createPrincipalIfNotExisting(final String loginName, final String pass, final Set<Role> roles) {
-        final Principal entityByName = principalService.findByName(loginName);
+    final void createUserIfNotExisting(final String username, final String loginName, final String pass, final Set<Role> roles) {
+        final User entityByName = userService.findByName(loginName);
         if (entityByName == null) {
-            final Principal entity = new Principal(loginName, pass, roles);
-            principalService.create(entity);
+            final User entity = new User(username, loginName, pass, roles);
+            userService.create(entity);
         }
     }
+
 }
