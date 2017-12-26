@@ -131,14 +131,14 @@ public class SecuritySetup implements ApplicationListener<ContextRefreshedEvent>
         final Role roleAdmin = roleService.findByName(Roles.ROLE_ADMIN);
         final Role roleUser = roleService.findByName(Roles.ROLE_ENDUSER);
 
-        createUserIfNotExisting(UserCenter.ADMIN_USERNAME, UserCenter.ADMIN_EMAIL, UserCenter.ADMIN_PASS, Sets.<Role> newHashSet(roleAdmin));
-        createUserIfNotExisting(UserCenter.USER_USERNAME, UserCenter.USER_EMAIL, UserCenter.USER_PASS, Sets.<Role> newHashSet(roleUser));
+        createUserIfNotExisting(UserCenter.ADMIN_EMAIL, UserCenter.ADMIN_PASS, Sets.<Role> newHashSet(roleAdmin));
+        createUserIfNotExisting(UserCenter.USER_EMAIL, UserCenter.USER_PASS, Sets.<Role> newHashSet(roleUser));
     }
 
-    final void createUserIfNotExisting(final String username, final String loginName, final String pass, final Set<Role> roles) {
+    final void createUserIfNotExisting(final String loginName, final String pass, final Set<Role> roles) {
         final User entityByName = userService.findByName(loginName);
         if (entityByName == null) {
-            final User entity = new User(username, loginName, pass, roles);
+            final User entity = new User(loginName, pass, roles);
             userService.create(entity);
         }
     }

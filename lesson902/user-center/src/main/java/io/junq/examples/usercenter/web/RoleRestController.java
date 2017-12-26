@@ -39,6 +39,22 @@ public class RoleRestController extends AbstractController<Role> implements ISor
     }
 
     // API
+    
+    // search
+
+    @RequestMapping(params = { QueryConstants.Q_PARAM }, method = RequestMethod.GET)
+    @ResponseBody
+    @Secured(Privileges.CAN_ROLE_READ)
+    public List<Role> searchAll(@RequestParam(QueryConstants.Q_PARAM) final String queryString) {
+        return searchAllInternal(queryString);
+    }
+
+    @RequestMapping(params = { QueryConstants.Q_PARAM, QueryConstants.PAGE, QueryConstants.SIZE }, method = RequestMethod.GET)
+    @ResponseBody
+    @Secured(Privileges.CAN_ROLE_READ)
+    public List<Role> searchAllPaginated(@RequestParam(QueryConstants.Q_PARAM) final String queryString, @RequestParam(value = QueryConstants.PAGE) final int page, @RequestParam(value = QueryConstants.SIZE) final int size) {
+        return searchAllPaginatedInternal(queryString, page, size);
+    }
 
     // 查找：所有、分页
 

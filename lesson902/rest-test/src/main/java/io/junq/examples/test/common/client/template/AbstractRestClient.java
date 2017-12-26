@@ -248,7 +248,7 @@ public abstract class AbstractRestClient<T extends IDto> implements IRestClient<
         Preconditions.checkNotNull(resource);
         RequestSpecification givenAuthenticated = null;
         if (credentials != null) {
-            givenAuthenticated = auth.givenAuthenticated(credentials.getLeft(), credentials.getRight());
+            givenAuthenticated = auth.givenBasicAuthenticated(credentials.getLeft(), credentials.getRight());
         } else {
             givenAuthenticated = givenWriteAuthenticated();
         }
@@ -389,23 +389,23 @@ public abstract class AbstractRestClient<T extends IDto> implements IRestClient<
     @Override
     public final RequestSpecification givenReadAuthenticated() {
         final Pair<String, String> credentials = getReadCredentials();
-        return auth.givenAuthenticated(credentials.getLeft(), credentials.getRight());
+        return auth.givenBasicAuthenticated(credentials.getLeft(), credentials.getRight());
     }
 
     final RequestSpecification givenReadExtendedAuthenticated() {
         final Pair<String, String> credentials = getReadExtendedCredentials();
-        return auth.givenAuthenticated(credentials.getLeft(), credentials.getRight());
+        return auth.givenBasicAuthenticated(credentials.getLeft(), credentials.getRight());
     }
 
     final RequestSpecification givenWriteAuthenticated() {
         final Pair<String, String> credentials = getWriteCredentials();
-        return auth.givenAuthenticated(credentials.getLeft(), credentials.getRight());
+        return auth.givenBasicAuthenticated(credentials.getLeft(), credentials.getRight());
     }
 
     @Override
     public final RequestSpecification givenDeleteAuthenticated() {
         final Pair<String, String> credentials = getWriteCredentials();
-        return auth.givenAuthenticated(credentials.getLeft(), credentials.getRight());
+        return auth.givenBasicAuthenticated(credentials.getLeft(), credentials.getRight());
     }
 
     protected Pair<String, String> getWriteCredentials() {

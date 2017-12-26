@@ -34,7 +34,6 @@ public class User implements INameableEntity, INameableDto {
 	@Size(min = 2, max = 30)
 	private String name;
 	
-	@NotNull
 	@Email
 	private String email;
 	
@@ -59,6 +58,14 @@ public class User implements INameableEntity, INameableDto {
 		super();
 
 		locked = false;
+	}
+	
+	public User(final String nameToSet, final String passwordToSet, final Set<Role> rolesToSet) {
+		super();
+
+		name = nameToSet;
+		password = passwordToSet;
+		roles = rolesToSet;
 	}
 
 	public User(final String nameToSet, final String emailToSet, final String passwordToSet, final Set<Role> rolesToSet) {

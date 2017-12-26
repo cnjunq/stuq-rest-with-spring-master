@@ -131,9 +131,20 @@
 						<properties>
 							<cargo.servlet.port>8082</cargo.servlet.port>
 							<cargo.tomcat.ajp.port>8010</cargo.tomcat.ajp.port>
-                            <cargo.rmi.port>8006</cargo.rmi.port>
+							<cargo.rmi.port>8006</cargo.rmi.port>
 						</properties>
 					</configuration>
+					<!-- Deployables configuration -->
+					<deployables>
+						<deployable>
+							<groupId>${project.groupId}</groupId>
+							<artifactId>${project.artifactId}</artifactId>
+							<type>war</type>
+							<properties>
+								<context>/</context>
+							</properties>
+						</deployable>
+					</deployables>
 				</configuration>
 			</plugin>
 		</plugins>
