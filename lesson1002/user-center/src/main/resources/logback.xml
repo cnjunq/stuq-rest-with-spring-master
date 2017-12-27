@@ -1,0 +1,25 @@
+<configuration>
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<logger name="org.hibernate" level="WARN" />
+
+	<logger name="org.springframework" level="WARN" />
+	<logger name="org.springframework.transaction" level="WARN" />
+	<logger name="org.springframework.security" level="WARN" /> 
+	<logger name="org.springframework.web.servlet.mvc" level="WARN" />
+
+	<!-- 用户中心服务 -->
+	<logger name="io.junq.examples.usercenter" level="INFO" />
+	<logger name="io.junq.examples.usercenter.persistence.setup" level="DEBUG" />
+
+	<root level="INFO">
+		<appender-ref ref="STDOUT" />
+	</root>
+
+</configuration>
