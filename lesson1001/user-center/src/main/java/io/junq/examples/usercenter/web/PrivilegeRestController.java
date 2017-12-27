@@ -27,6 +27,7 @@ import io.junq.examples.usercenter.persistence.model.Privilege;
 import io.junq.examples.usercenter.service.IPrivilegeService;
 import io.junq.examples.usercenter.util.UserCenter.Privileges;
 import io.junq.examples.usercenter.util.UserCenterMapping;
+import io.junq.examples.usercenter.web.limit.RateLimit;
 
 @Controller
 @RequestMapping(value = UserCenterMapping.PRIVILEGES)
@@ -109,6 +110,7 @@ public class PrivilegeRestController extends AbstractController<Privilege> imple
     		)
     @ResponseBody
     @Secured(Privileges.CAN_ROLE_READ)
+    @RateLimit(1)
     public Privilege findOne(@PathVariable("id") final Long id) {
         return findOneInternal(id);
     }

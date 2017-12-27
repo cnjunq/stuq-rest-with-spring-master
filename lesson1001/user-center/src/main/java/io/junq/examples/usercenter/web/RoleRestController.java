@@ -26,6 +26,7 @@ import io.junq.examples.usercenter.persistence.model.Role;
 import io.junq.examples.usercenter.service.IRoleService;
 import io.junq.examples.usercenter.util.UserCenter.Privileges;
 import io.junq.examples.usercenter.util.UserCenterMapping;
+import io.junq.examples.usercenter.web.limit.RateLimit;
 
 @Controller
 @RequestMapping(value = UserCenterMapping.ROLES)
@@ -96,6 +97,7 @@ public class RoleRestController extends AbstractController<Role> implements ISor
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
     @Secured(Privileges.CAN_ROLE_READ)
+    @RateLimit(10)
     public Role findOne(@PathVariable("id") final Long id) {
         return findOneInternal(id);
     }
