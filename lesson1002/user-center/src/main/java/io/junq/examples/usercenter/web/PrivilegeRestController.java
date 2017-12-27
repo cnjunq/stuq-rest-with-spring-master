@@ -110,7 +110,6 @@ public class PrivilegeRestController extends AbstractController<Privilege> imple
     		)
     @ResponseBody
     @Secured(Privileges.CAN_ROLE_READ)
-    @RateLimit(1)
     public Privilege findOne(@PathVariable("id") final Long id) {
         return findOneInternal(id);
     }

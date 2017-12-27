@@ -97,7 +97,6 @@ public class RoleRestController extends AbstractController<Role> implements ISor
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
     @Secured(Privileges.CAN_ROLE_READ)
-    @RateLimit(10)
     public Role findOne(@PathVariable("id") final Long id) {
         return findOneInternal(id);
     }
