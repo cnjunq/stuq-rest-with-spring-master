@@ -75,6 +75,8 @@
 		<maven-compiler-plugin.version>3.6.1</maven-compiler-plugin.version>
 		<maven-resources-plugin.version>3.0.2</maven-resources-plugin.version>
 		<cargo-maven2-plugin.version>1.5.0</cargo-maven2-plugin.version>
+		
+		<kryo.version>4.0.1</kryo.version>
 
 		<!-- 内部依赖项目 -->
 		<rest-common.version>1.0.0-SNAPSHOT</rest-common.version>
@@ -134,6 +136,11 @@
 				<groupId>javax.validation</groupId>
 				<artifactId>validation-api</artifactId>
 				<version>${validation-api.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.esotericsoftware</groupId>
+				<artifactId>kryo</artifactId>
+				<version>${kryo.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

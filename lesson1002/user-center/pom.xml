@@ -77,6 +77,11 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>com.esotericsoftware</groupId>
+			<artifactId>kryo</artifactId>
+		</dependency>
+
 		<!-- 监控 -->
 
 		<dependency>
@@ -209,7 +214,7 @@
 							<configuration>
 								<type>runtime</type>
 								<properties>
-									<cargo.hostname>123.207.255.230</cargo.hostname> 
+									<cargo.hostname>123.207.255.230</cargo.hostname>
 									<cargo.servlet.port>8080</cargo.servlet.port>
 									<cargo.remote.username>deployer</cargo.remote.username>
 									<cargo.remote.password>deployerpass</cargo.remote.password>

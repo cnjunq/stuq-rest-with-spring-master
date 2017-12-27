@@ -22,6 +22,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
+import io.junq.examples.usercenter.web.KryoHttpMessageConverter;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -41,6 +42,8 @@ public class UserCenterWebConfiguration extends WebMvcConfigurerAdapter {
 	}
 	
 	public void extendMessageConverters(final List<HttpMessageConverter<?>> converters) {
+		converters.add(new KryoHttpMessageConverter());
+		
 		final Iterator<HttpMessageConverter<?>> converterIterator = converters.stream()
 					.filter(c -> c instanceof AbstractJackson2HttpMessageConverter).iterator();
 		while (converterIterator.hasNext()) {
