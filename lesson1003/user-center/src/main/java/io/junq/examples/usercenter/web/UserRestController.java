@@ -1,6 +1,7 @@
 package io.junq.examples.usercenter.web;
 
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.context.request.async.DeferredResult;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import io.junq.examples.common.util.QueryConstants;
@@ -33,6 +35,9 @@ public class UserRestController extends AbstractController<User> implements ISor
 	
 	@Autowired
     private IUserService service;
+	
+    @Autowired
+    private io.junq.examples.usercenter.service.AsyncService asyncService;
 
     public UserRestController() {
         super(User.class);
@@ -83,21 +88,59 @@ public class UserRestController extends AbstractController<User> implements ISor
     public User findOne(@PathVariable("id") final Long id) {
         return findOneInternal(id);
     }
+    
+    @RequestMapping(params = { "name" }, method = RequestMethod.GET)
+    @ResponseBody
+    @Secured(Privileges.CAN_USER_READ)
+    public User findOneByName(@RequestParam(value = "name") final String name) {
+        return getService().findByName(name);               
+    }
 
     // 新建
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    @Secured("CAN_CREATE_USER")
+    @Secured(Privileges.CAN_USER_WRITE)
     public void create(@RequestBody @Valid final User resource, final UriComponentsBuilder uriBuilder, final HttpServletResponse response) {
         createInternal(resource, uriBuilder, response);
     }
-
+    
+    @RequestMapping(value = "/callable", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.CREATED)
+    @Secured(Privileges.CAN_USER_WRITE)
+    @ResponseBody
+    public Callable<User> createWithCallable(@RequestBody @Valid final User resource, final UriComponentsBuilder uriBuilder, final HttpServletResponse response) {
+    	return new Callable<User>() {
+    		@Override
+    		public User call() {
+				return service.createSlow(resource);
+    		}
+    	};
+    }
+   
+    @RequestMapping(value = "/deferred", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.CREATED)
+    @Secured(Privileges.CAN_USER_WRITE)
+    @ResponseBody
+    public DeferredResult<User> createWithDeferredResult(@RequestBody @Valid final User resource, final UriComponentsBuilder uriBuilder, final HttpServletResponse response) {
+    	DeferredResult<User> result = new DeferredResult<User>();
+    	asyncService.scheduleCreateUser(resource, result);
+    	return result;
+    }
+    
+    @RequestMapping(value = "/async", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public void createUserWithAsync(@RequestBody @Valid final User resource, final UriComponentsBuilder uriBuilder, final HttpServletResponse response) throws InterruptedException {
+    	asyncService.createUserAsync(resource);
+    	final String location = uriBuilder.path("/users").queryParam("name", resource.getName()).build().encode().toString();
+    	response.setHeader("Location", location);
+    }
+    
     // 更新
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
-    @Secured("CAN_UPDATE_USER")
+    @Secured(Privileges.CAN_USER_WRITE)
     public void update(@PathVariable("id") final Long id, @RequestBody final User resource) {
         updateInternal(id, resource);
     }
@@ -106,7 +149,7 @@ public class UserRestController extends AbstractController<User> implements ISor
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @Secured("CAN_DELETE_USER")
+    @Secured(Privileges.CAN_USER_WRITE)
     public void delete(@PathVariable("id") final Long id) {
         deleteByIdInternal(id);
     }

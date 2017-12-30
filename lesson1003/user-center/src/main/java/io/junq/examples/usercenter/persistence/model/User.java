@@ -37,6 +37,16 @@ public class User implements INameableEntity, INameableDto {
 	@Email
 	private String email;
 	
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	private String status;
+	
 	@Min(0)
 	@Max(99)
 	private int age;

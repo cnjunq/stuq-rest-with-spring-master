@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import io.junq.examples.common.persistence.service.AbstractService;
 import io.junq.examples.usercenter.persistence.dao.IUserJpaDao;
 import io.junq.examples.usercenter.persistence.model.User;
+import io.junq.examples.usercenter.service.AsyncService;
 import io.junq.examples.usercenter.service.IUserService;
 
 @Service
@@ -42,4 +43,15 @@ public class UserServiceImpl extends AbstractService<User> implements IUserServi
     protected JpaSpecificationExecutor<User> getSpecificationExecutor() {
         return dao;
     }
+
+	@Override
+	public User createSlow(User user) {
+		try {
+            Thread.sleep(AsyncService.DELAY);
+
+            return create(user);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+	}
 }

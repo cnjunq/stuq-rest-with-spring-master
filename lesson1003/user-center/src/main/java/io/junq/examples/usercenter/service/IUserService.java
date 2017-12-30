@@ -4,5 +4,5 @@ import io.junq.examples.common.persistence.service.IService;
 import io.junq.examples.usercenter.persistence.model.User;
 
 public interface IUserService extends IService<User> {
-
+	User createSlow(final User user);
 }

@@ -13,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.AbstractJackson2HttpMessageConverter;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -35,6 +36,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @ComponentScan({ "io.junq.examples.usercenter.web", "io.junq.examples.common.web", "io.junq.examples.common.metric.web" })
 @EnableWebMvc
 @EnableSwagger2
+@EnableAsync
 public class UserCenterWebConfiguration extends WebMvcConfigurerAdapter {
 
 	public UserCenterWebConfiguration() {
